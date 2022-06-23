@@ -31,39 +31,48 @@ rotated1 = imrotate(img, angle, 'nearest');
 rotated2 = imrotate(img, angle, 'bilinear', 'crop');
 rotated3 = imrotate(img, angle, 'bicubic', 'loose');
 
-figure();
-montage({rotated1, rotated2});
+% figure();
+% montage({rotated1, rotated2});
 
 res = [480, 640];
 resized1 = imresize(img, res, 'nearest');
 resized2 = imresize(img, res, 'bilinear');
 resized3 = imresize(img, res, 'cubic');
 
-figure();
-imshow(resized1);
+% figure();
+% imshow(resized1);
 
 reshaped1 = reshape(gray, [387*3, 387/3]);
 reshaped2 = reshape(gray, [387/3, 387*3]);
 
-figure();
-imshow(reshaped1');
-figure();
-imshow(reshaped2);
+% figure();
+% imshow(reshaped1');
+% figure();
+% imshow(reshaped2);
 
 flipped_ud = flipud(img);
 flipped_lr = fliplr(img);
 
-figure();
-montage({flipped_ud, flipped_lr});
+% figure();
+% montage({flipped_ud, flipped_lr});
 
-crop1 = imcrop(img, [0, 0, 1000, 1000]);
-crop2 = imcrop(img, [1000, 0, 1920, 1000]);
-crop3 = imcrop(img, [0, 1000, 1000, 1080]);
-crop4 = imcrop(img, [1000, 1000, 1920, 1080]);
+crop1 = imcrop(img, [0, 0, 200, 200]);
+crop2 = imcrop(img, [0, 200, 200, 387]);
+crop3 = imcrop(img, [200, 0, 387, 200]);
+crop4 = imcrop(img, [200, 200, 387, 387]);
+
+concat1 = cat(1, crop1, crop2);
+concat2 = cat(1, crop3, crop4);
+concat = cat(2, concat1, concat2);
+
+% figure();
+% montage({crop1, crop2, crop3, crop4});
+% figure();
+% imshow(concat);
 
 % Ex. 3
-img1 = imread('obraz1.jpg');
-img2 = imread('obraz2.jpg');
+img1 = imread('norway.jpg');
+img2 = imread('sweden.jpg');
 
 sum = imadd(img1, img2);
 diff = imabsdiff(img1, img2);
@@ -77,17 +86,21 @@ mul = immultiply(img1, img2);
 % montage({sum, diff, div, mul});
 
 % Ex. 4
-combined = [];
-
 for i=0:0.1:1
-    combined(i+1) = imlincomb(i, img1, 1-i, img2);
+    combined = imlincomb(i, img1, 1-i, img2);
     % imshow(combined);
 end
 
-montage({combined(1), combined(2)});
+comb1 = imlincomb(0.1, img1, 1-0.1, img2);
+comb2 = imlincomb(0.2, img1, 1-0.2, img2);
+comb3 = imlincomb(0.3, img1, 1-0.3, img2);
+comb4 = imlincomb(0.4, img1, 1-0.4, img2);
+comb5 = imlincomb(0.5, img1, 1-0.5, img2);
+comb6 = imlincomb(0.6, img1, 1-0.6, img2);
+comb7 = imlincomb(0.7, img1, 1-0.7, img2);
+comb8 = imlincomb(0.8, img1, 1-0.8, img2);
+comb9 = imlincomb(0.9, img1, 1-0.9, img2);
 
-% imshow(comb, []);
-
-
-
-
+% figure();
+% montage({comb1, comb2, comb3, comb4, comb5, ...
+%     comb6, comb7, comb8, comb9}, 'Size', [3, 3]);
