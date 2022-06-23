@@ -159,11 +159,11 @@ imshow(img_red);
 [X128, map128] = rgb2ind(img, 128);
 [X256, map256] = rgb2ind(img, 256);
 
-img16 = ind2rgb([X16, map16]);
-img128 = ind2rgb([X128, map128]);
-img256 = ind2rgb([X256, map256]);
+img16 = ind2rgb(X16, map16);
+img128 = ind2rgb(X128, map128);
+img256 = ind2rgb(X256, map256);
 
 figure();
-montage({img16, img128, img256});
+montage({img16, img128, img256}, 'Size', [1, 3]);
     
 % Ex. 5 is optional
